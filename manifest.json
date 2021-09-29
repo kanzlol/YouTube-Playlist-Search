@@ -1,0 +1,28 @@
+{
+  "manifest_version": 2,
+
+  "name": "YouTube Playlist Search",
+  "description": "This extension lets you search youtube playlists",
+  "version": "1.0",
+  "oauth2": {
+    "client_id": "YOUR_CLIENT_ID",
+    "scopes":["https://www.googleapis.com/auth/youtube.readonly"]
+  },
+  "content_security_policy": "script-src 'self' https://apis.google.com/; object-src 'self'",
+  "background": {
+    "page": "background.html",
+    "persistent": true
+  },
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "16": "icon/search16.png",
+    "48": "icon/search48.png",
+    "128": "icon/search128.png"
+  },
+  "permissions": [
+    "tabs",
+    "identity"
+  ]
+}

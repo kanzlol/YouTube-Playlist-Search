@@ -1,0 +1,31 @@
+#exists {
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  width: 435px;
+  font-size: 16px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#results {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  width: 460px;
+}
+
+#results li a {
+    border: 1px solid #ddd;
+    margin-top: -1px;
+    background-color: #f6f6f6;
+    padding: 12px;
+    text-decoration: none;
+    font-size: 16px;
+    color: black;
+    display: block;
+}
+
+#results li a:hover:not(.header) {
+  background-color: #eee;
+}
