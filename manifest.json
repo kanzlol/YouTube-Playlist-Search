@@ -1,9 +1,10 @@
 {
   "manifest_version": 2,
 
-  "name": "YouTube Playlist Search",
+  "name": "YouTube Playlist Search Test",
   "description": "This extension lets you search youtube playlists",
   "version": "1.0",
+  "author": "Fætter",
   "oauth2": {
     "client_id": "YOUR_CLIENT_ID",
     "scopes":["https://www.googleapis.com/auth/youtube.readonly"]
@@ -23,6 +24,7 @@
   },
   "permissions": [
     "tabs",
-    "identity"
+    "identity",
+    "storage"
   ]
 }

@@ -2,6 +2,8 @@ let port = chrome.extension.connect({
   name: "Sample Communication"
 });
 
+chrome.runtime.sendMessage({popupOpen: true});
+
 port.onMessage.addListener(function(message) {
   console.log(message);
 
@@ -25,7 +27,6 @@ port.onMessage.addListener(function(message) {
     while(ul.firstChild) {
       ul.removeChild(ul.firstChild);
     }
-    console.log("done")
 
     let titleList = [];
     let videoLinks = [];
