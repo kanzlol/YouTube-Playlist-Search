@@ -3,7 +3,7 @@
 
   "name": "YouTube Playlist Search Test",
   "description": "This extension lets you search youtube playlists",
-  "version": "1.0",
+  "version": "1.1",
   "author": "Fætter",
   "oauth2": {
     "client_id": "YOUR_CLIENT_ID",
@@ -14,8 +14,13 @@
     "page": "background.html",
     "persistent": true
   },
-  "browser_action": {
-    "default_popup": "popup.html"
+  "page_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon/search16.png",
+      "48": "icon/search48.png",
+      "128": "icon/search128.png"
+    }
   },
   "icons": {
     "16": "icon/search16.png",
