@@ -49,7 +49,7 @@ function stuff() {
         ['titles', 'videos', 'url'],
         function(data) {
           console.log(data.url, formattedUrl)
-          if(data.url != formattedUrl || data.url != '') {
+          if(data.url != formattedUrl || data.url == '') {
             
             titleList = [];
             videoLinks = [];
