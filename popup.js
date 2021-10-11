@@ -40,33 +40,44 @@ function stuff() {
     url = tabs[0].url;
     console.log(url);
     let currentUrl = url.match(/[&?]list=([^&]+)/i);
-    formattedUrl = currentUrl[1];
-    
+    formattedUrl = currentUrl[1];    
     
     if(formattedUrl) {
+
+      return gapi.client.youtube.playlists.list({
+        "part": "contentDetails",
+        "id": formattedUrl
+      }).then(function(response) {
+
+        console.log(response)
+        let playlistLength = response.result.items[0].contentDetails.itemCount;
+
+        chrome.storage.local.get(
+          ['titles', 'videos', 'url'],
+          function(data) {
+            console.log(data.url, formattedUrl)
+            console.log("playlist length: ", playlistLength, "local storage: ", data.titles.length)
+            if(data.url != formattedUrl || data.url == '' || playlistLength > data.titles.length) {
+              
+              titleList = [];
+              videoLinks = [];
+              getPlaylist(url);
+              
+            }
+            else {
+              console.log("Same playlist")
+              updateList(data.titles, data.videos);
+              
+            }
+            
+          });
+    
+          chrome.storage.local.set({
+            url: formattedUrl
+          });
+
+      });
       
-      chrome.storage.local.get(
-        ['titles', 'videos', 'url'],
-        function(data) {
-          console.log(data.url, formattedUrl)
-          if(data.url != formattedUrl || data.url != '') {
-            
-            titleList = [];
-            videoLinks = [];
-            getPlaylist(url);
-            
-          }
-          else {
-            console.log("Same playlist")
-            updateList(data.titles, data.videos);
-            
-          }
-          
-        });
-  
-        chrome.storage.local.set({
-          url: formattedUrl
-        });
         
     }
   
@@ -80,7 +91,6 @@ function getPlaylist(url) {
   let tempId = playlistId.match(/[&?]list=([^&]+)/i);
   formattedPlaylistId = tempId[1];
 
-  console.log('loading')
   let li = document.createElement('li');
   let a = document.createElement('a');
   a.setAttribute('href', '#');
@@ -138,6 +148,7 @@ function requestPlaylist(playlistId, pageToken) {
             titleList.push(item.snippet.title);
             videoLinks.push("https://www.youtube.com/watch?v=" + item.snippet.resourceId.videoId + "&list=" + formattedPlaylistId);
           });
+          updateList(titleList, videoLinks);
   
         }
   
@@ -153,8 +164,7 @@ function requestPlaylist(playlistId, pageToken) {
           else {
   
             console.log("Every pageToken completed", titleList);
-            updateList(titleList, videoLinks);
-            
+
             chrome.storage.local.set({
               titles: titleList,
               videos: videoLinks
